@@ -7,13 +7,15 @@ interface CodeSnippetState {
   title: string;
   isDark: boolean;
   language: string;
+  isLanguageDetectionEnabled: boolean;
   fontSize: number;
-  fontStyle: "jetbrainsMono";
+  fontStyle: string;
   theme: string;
   padding: number;
 }
 
 const initialState: CodeSnippetState = {
+  isLanguageDetectionEnabled: false,
   code: codeSnippets[0].code,
   title: "Title",
   isDark: true,
@@ -27,6 +29,7 @@ const initialState: CodeSnippetState = {
 type CodeSnippetActions = {
   updateCode: (code: string) => void;
   updateTitle: (title: string) => void;
+  toggleLanguageDetection: () => void;
   toggleDarkMode: () => void;
   updateLanguage: (language: string) => void;
   updateTheme: (theme: string) => void;
@@ -44,6 +47,10 @@ export const useCodeSnippetStore = create(
     (set, get): CodeSnippetStore => ({
       ...initialState,
       actions: {
+        toggleLanguageDetection: () =>
+          set((state) => ({
+            isLanguageDetectionEnabled: !state.isLanguageDetectionEnabled,
+          })),
         updateCode: (code) => set({ code }),
         updateTitle: (title) => set({ title }),
         toggleDarkMode: () => set((state) => ({ isDark: !state.isDark })),
