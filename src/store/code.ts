@@ -1,3 +1,4 @@
+"use client";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { codeSnippets } from "@/lib/options";
@@ -22,7 +23,7 @@ const initialState: CodeSnippetState = {
   language: codeSnippets[1].language,
   theme: "hyper",
   fontSize: 18,
-  fontStyle: "jetbrainsMono",
+  fontStyle: "jetBrainsMono",
   padding: 64,
 };
 
