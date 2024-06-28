@@ -11,7 +11,7 @@ function Editor() {
   const { fontStyle, fontSize, language } = useCodeValues();
   const [code, setCode] = useState("");
   return (
-    <div className="shadow-2xl rounded-xl min-w-[400px] border-gray-500 dark:border-white/20 border-2">
+    <div className="shadow-2xl rounded-xl min-w-[400px] border-gray-800 dark:border-white/20 border-2">
       <header className="grid grid-cols-6 gap-3 items-center py-3 px-4">
         <div className="flex gap-1 5">
           <div className="rounded-full h-3 w-3 bg-red-500 text-sm "></div>

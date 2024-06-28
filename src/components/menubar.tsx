@@ -1,5 +1,6 @@
 import { CameraIcon } from "@radix-ui/react-icons";
 import React from "react";
+import { ModeToggle } from "./mode-toggle";
 
 const FontSelector = () => {
   return <div></div>;
@@ -17,7 +18,7 @@ function MenuBar() {
           <FontSelector />
           <LanguageSelector />
           <CameraIcon className="cursor-pointer hover:text-gray-300 shadow-lg" />
-
+          <ModeToggle />
         </div>
       </div>
     </div>
