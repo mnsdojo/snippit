@@ -2,14 +2,13 @@
 import React from "react";
 import CodeEditor from "react-simple-code-editor";
 
-import { useState } from "react";
 import hljs from "highlight.js";
-import { useCodeValues } from "@/store/code";
+import { useCodeActions, useCodeValues } from "@/store/code";
 import { fonts } from "@/lib/options";
-import { cn } from "@/lib/utils";
 function Editor() {
-  const { fontStyle, fontSize, language } = useCodeValues();
-  const [code, setCode] = useState("");
+  const { fontStyle, fontSize, language, code, title } = useCodeValues();
+  const { updateCode, updateTitle } = useCodeActions();
+
   return (
     <div className="shadow-2xl rounded-xl min-w-[400px] border-gray-800 dark:border-white/20 border-2">
       <header className="grid grid-cols-6 gap-3 items-center py-3 px-4">
@@ -20,6 +19,8 @@ function Editor() {
         </div>
         <div className="col-span-4 flex justify-center">
           <input
+            value={title}
+            onChange={(e) => updateTitle(e.target.value)}
             type="text"
             placeholder="Title"
             className="bg-transparent text-zinc-900 dark:text-white/70  text-center focus:ring-0 focus:outline-none"
@@ -30,7 +31,7 @@ function Editor() {
         <CodeEditor
           value={code}
           onValueChange={(code) => {
-            setCode(code);
+            updateCode(code);
           }}
           style={{
             fontFamily: fonts[fontStyle].name,

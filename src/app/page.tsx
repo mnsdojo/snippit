@@ -2,26 +2,17 @@
 import Editor from "@/components/editor";
 import MenuBar from "@/components/menubar";
 import { fonts, themes } from "@/lib/options";
-import { useCodeValues, useCodeActions } from "@/store/code";
+import { useCodeValues } from "@/store/code";
 import { useRef } from "react";
 function Page() {
-  const {
-    code,
-    fontSize,
-    fontStyle,
-    theme,
-    isDark,
-    isLanguageDetectionEnabled,
-    language,
-    padding,
-  } = useCodeValues();
+  const { fontStyle, theme } = useCodeValues();
   const editorRef = useRef<HTMLDivElement>(null);
   return (
     <main className="flex flex-col relative h-[100vh] justify-center items-center">
       <link rel="stylesheet" href={themes[theme].theme} />
       <link
         rel="stylesheet"
-        href={fonts[fontStyle]?.src || ""}
+        href={fonts[fontStyle]?.src}
         crossOrigin="anonymous"
       />
       <div ref={editorRef} className="z-0">

@@ -14,6 +14,21 @@ interface CodeSnippetState {
   theme: string;
   padding: number;
 }
+type FontStyle =
+  | "jetBrainsMono"
+  | "inconsolata"
+  | "firaCode"
+  | "cascadiaCode"
+  | "victorMono"
+  | "sourceCodePro"
+  | "ibmPlexMono"
+  | "robotoMono"
+  | "ubuntuMono"
+  | "spaceMono"
+  | "courierPrime"
+  | "anonymousPro"
+  | "oxygenMono"
+  | "redHatMono";
 
 const initialState: CodeSnippetState = {
   isLanguageDetectionEnabled: false,
@@ -35,13 +50,15 @@ type CodeSnippetActions = {
   updateLanguage: (language: string) => void;
   updateTheme: (theme: string) => void;
   updateFontSize: (fontSize: number) => void;
-  updateFontStyle: (fontStyle: "jetbrainsMono") => void;
+  updateFontStyle: (fontStyle: string) => void;
   updatePadding: (padding: number) => void;
 };
 
 type CodeSnippetStore = CodeSnippetState & {
   actions: CodeSnippetActions;
 };
+
+
 
 export const useCodeSnippetStore = create(
   persist<CodeSnippetStore>(
@@ -58,7 +75,7 @@ export const useCodeSnippetStore = create(
         updateLanguage: (language) => set({ language }),
         updateTheme: (theme) => set({ theme }),
         updateFontSize: (fontSize) => set({ fontSize }),
-        updateFontStyle: (fontStyle) => set({ fontStyle }),
+        updateFontStyle: (fontStyle: string) => set({ fontStyle }),
         updatePadding: (padding) => set({ padding }),
       },
     }),
