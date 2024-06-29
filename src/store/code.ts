@@ -14,21 +14,6 @@ interface CodeSnippetState {
   theme: string;
   padding: number;
 }
-type FontStyle =
-  | "jetBrainsMono"
-  | "inconsolata"
-  | "firaCode"
-  | "cascadiaCode"
-  | "victorMono"
-  | "sourceCodePro"
-  | "ibmPlexMono"
-  | "robotoMono"
-  | "ubuntuMono"
-  | "spaceMono"
-  | "courierPrime"
-  | "anonymousPro"
-  | "oxygenMono"
-  | "redHatMono";
 
 const initialState: CodeSnippetState = {
   isLanguageDetectionEnabled: false,
@@ -58,8 +43,6 @@ type CodeSnippetStore = CodeSnippetState & {
   actions: CodeSnippetActions;
 };
 
-
-
 export const useCodeSnippetStore = create(
   persist<CodeSnippetStore>(
     (set, get): CodeSnippetStore => ({
@@ -81,6 +64,7 @@ export const useCodeSnippetStore = create(
     }),
     {
       name: "code-snippet-storage",
+      skipHydration: true,
       storage: createJSONStorage(() => sessionStorage),
     }
   )

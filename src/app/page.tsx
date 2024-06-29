@@ -19,7 +19,7 @@ function Page() {
         <Editor />
       </div>
       <div className="absolute top-[80%] z-10">
-        <MenuBar />
+        <MenuBar reff={editorRef} />
       </div>
     </main>
   );
