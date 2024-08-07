@@ -5,7 +5,7 @@ import { api } from "../../../../convex/_generated/api";
 
 function Page({ params }: { params: { id: string } }) {
   const snippet = useQuery(api.snippit.getSnippet, { slug: params.id });
-  if (!snippet) return <div>Wait ...</div>;
+  if (!snippet) return <div>Wait .</div>;
 
   return (
     <div>
