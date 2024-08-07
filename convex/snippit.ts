@@ -1,6 +1,7 @@
-import { mutation, query } from "./_generated/server";
+import { internalAction, mutation, query } from "./_generated/server";
 import { nanoid } from "nanoid";
 import { v } from "convex/values";
+import { api } from "./_generated/api";
 
 const snippetArgs = {
   title: v.string(),
@@ -31,6 +32,18 @@ export const createSnippet = mutation({
     return { id, slug: data.slug };
   },
 });
+export const clearOldSnippets = internalAction(async (ctx) => {
+  const fiveDays = new Date();
+  fiveDays.setDate(fiveDays.getDate() - 5);
+  const oldSnippets = await ctx.runQuery(api.snippit.listOldSnippets, {
+    olderThan: fiveDays.toISOString(),
+  });
+  for (const snippet of oldSnippets) {
+    await ctx.runMutation(api.snippit.deleteSnippet, { id: snippet._id });
+  }
+
+  console.log(`Cleared ${oldSnippets.length} old snippets`);
+});
 
 export const getSnippet = query({
   args: { slug: v.string() },
@@ -43,8 +56,6 @@ export const getSnippet = query({
     if (!snippet) {
       throw new Error("Snippet not found");
     }
-
-    // Increment view count
 
     return snippet;
   },
@@ -70,6 +81,15 @@ export const deleteSnippet = mutation({
   },
 });
 
+export const listOldSnippets = query({
+  args: { olderThan: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("snippets")
+      .filter((q) => q.lt(q.field("createdAt"), args.olderThan))
+      .collect();
+  },
+});
 export const listSnippets = query({
   args: {
     exposure: v.optional(
